@@ -44,6 +44,11 @@ As a reference, find below the official sources of information:
 - [xda forum page for evolution-x on this device](https://xdaforums.com/t/rom-op6893-a16-evolutionx-official-for-oneplus-nord-2-5g-and-realme-x7-max-5g.4796652/)
 
 - [telegram support channel](http://t.me/OnePlusNord2GlobalOfficial) 
+  - In the channel, type `/notes` to get a list of tutorials
+
+
+
+This article is worth mentioning too, not sure everything is up to date though: [Nord2Guides.md](https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#file-nord2guides-md)
 
 # Pre-requisites
 
@@ -102,11 +107,10 @@ OxygenOS 13 has locked the possibility to enter fastboot / bootloader mode. In o
 
 ## Device variants
 
-**Beware that there are 2 regional variants of this device**: 
+**Beware that there are 2 regional variants of this device and 3 downgrade packages**: 
 
-- DN2103 for europe
-- DN2101 for India
-  - I haven't tested this variant so I can't provide a working URL. Search on the way back machine, on forums, ask on telegram...
+- DN2103 for europe (**EU**) and other countries - not india, not europe- (**GLO**)
+- DN2101 for **India**
 
 Make sure your use the correct package. You can double-check your phone variant in the phone parameters.
 
@@ -114,20 +118,27 @@ Make sure your use the correct package. You can double-check your phone variant 
 
 One plus has stopped distributing this package, so we'll find it from the internet archive (aka wayback machine)
 
-I have tried several packages before getting one that works (some displayed *incompatible with your system* upon installation)
+Original (dead) links were found from https://community.oneplus.com/thread/1596759 and fed to the Wayback machine.
 
-This one worked for the EU device: https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_EU.zip
+Direct (working) links: 
 
-This is the latest version stored on the wayback machine
+- DN2103 / EU : https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_EU.zip
 
-``` 
+```
 sha256sum 'oplus_ota_downgrade_EU'
 3db05626498716191c570dadc08d90adcca0fca5c35a997778a34454c6f64ead  oplus_ota_downgrade_EU.zip
 du -h 'oplus_ota_downgrade_EU.zip'
 3,6G	oplus_ota_downgrade_EU.zip
 ```
 
-Some say that the package needs to be renamed to `oplus_ota_downgrade.zip` but I don't think it did a difference. 
+- DN2103 / GLO: https://web.archive.org/web/20221117114244/https://oxygenos.oneplus.net/oplus_ota_downgrade_NA.zip (to be tested)
+- DN2101 / India: https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_Nord2Rollback.zip (to be tested)
+
+Rename to `oplus_ota_downgrade.zip` after download
+
+
+
+Alternatively, you can check this method in telegram notes: [download_oplus_rollback](http://t.me/MissRose_bot?start=notes_-1001596273500_1944257)
 
 ## Transfer package to the phone
 
@@ -136,6 +147,13 @@ Copy the file to the root of your phone storage (plug the phone via usb to be PC
 ## Install downgrade package
 
 We'll install the package using **local install**
+
+See also in telegram */notes* : 
+
+- [local_install_fix](http://t.me/MissRose_bot?start=notes_-1001596273500_1944259)
+- [downgrade_instructions](http://t.me/MissRose_bot?start=notes_-1001596273500_1409105)
+
+
 
 1. **The "Anti-Crash" protocol in settings:**
    - Enable **Airplane Mode** on your phone (crucial to cut off Wi-Fi and mobile data).
@@ -166,4 +184,107 @@ We'll install the package using **local install**
    - Let the installation process run until it finishes (this can take 5 to 10 minutes).
 
    - As soon as the installation reaches 100%, tap **Restart**.
+
+# Install firmware and custom ROM
+
+## Unlock bootloader
+
+After reboot to OOS 11, configure briefly your phone without setting your accounts:
+
+1. Do again [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
+
+2. Plug the phone to your PC
+
+3. Run
+
+   ```
+   adb reboot bootloader
+   ```
+
+Phone should enter **Fastboot Mode**. 
+
+On ubuntu type in: 
+
+``````
+fastboot flashing unlock
+``````
+
+Validate with volume up.
+
+## Download TWRP, firmware, ROM
+
+- Download the latest TWRP image from https://dl.twrp.me/denniz/ 
+- Download firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+- Download evolution-x ROM from https://evolution-x.org/device/op6893
+
+## Flash TWRP
+
+TWRP is an app that will help us install the firmware and the ROM to the device
+
+Switch to fastbootd mode: 
+
+```
+fastboot reboot fastboot
+```
+
+Flash the TWRP image to the recovery partition with:  
+
+```
+fastboot flash recovery twrp-3.7.0_11-0-denniz.img
+```
+
+Reboot the phone to recovery to run TWRP on the phone:
+
+```
+fastboot reboot recovery
+```
+
+## Flash firmware and ROM
+
+As we are now on OxygenOs 11 and we want to install an android 16 ROM, we need to first update the firmware
+
+**You must flash both the firmware and the ROM without rebooting in between**
+
+In TWRP, before starting wipe data
+
+- wipe / advanced : 
+
+  - dalvik
+
+  - data
+
+  - cache
+
+- Go to Advanced / ADB Sideload
+- Swipe the "**Swipe to Start Sideload**" cursor so that twrp will wait for the PC to push an image
+
+On ubuntu push the firmware using adb:
+
+```
+adb sideload 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+```
+
+Wait for TWRP to finish processing it, then push the ROM: 
+
+```
+adb sideload EvolutionX-16.0-20260919-op6893-11.11-Official.zip
+```
+
+## Format data
+
+In TWRP, go to **wipe menu / format data**
+
+## Reboot
+
+Reboot. 
+
+The Phone should now run Evolution-x!
+
+# Play integrity, relocking
+
+TODO
+
+
+
+
 
