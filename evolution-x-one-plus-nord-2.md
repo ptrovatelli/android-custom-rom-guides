@@ -11,6 +11,15 @@
   - [Download the downgrade package](#download-the-downgrade-package)
   - [Transfer package to the phone](#transfer-package-to-the-phone)
   - [Install downgrade package](#install-downgrade-package)
+- [Install firmware and custom ROM](#install-firmware-and-custom-rom)
+  - [Unlock bootloader](#unlock-bootloader)
+  - [Download TWRP, firmware, ROM](#download-twrp-firmware-rom)
+  - [Flash TWRP](#flash-twrp)
+  - [Flash firmware and ROM](#flash-firmware-and-rom)
+  - [Format data](#format-data)
+  - [Reboot](#reboot)
+- [Play integrity, relocking](#play-integrity-relocking)
+
 
 # Introduction
 
