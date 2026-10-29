@@ -1,3 +1,17 @@
+- [Introduction](#introduction)
+  - [What is this](#what-is-this)
+  - [Disclaimer](#disclaimer)
+- [Official instructions](#official-instructions)
+- [Pre-requisites](#pre-requisites)
+  - [Handle your data and primary phone](#handle-your-data-and-primary-phone)
+  - [Install tools on ubuntu](#install-tools-on-ubuntu)
+  - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
+- [Downgrade to OxygenOS 11](#downgrade-to-oxygenos-11)
+  - [Device variants](#device-variants)
+  - [Download the downgrade package](#download-the-downgrade-package)
+  - [Transfer package to the phone](#transfer-package-to-the-phone)
+  - [Install downgrade package](#install-downgrade-package)
+
 # Introduction
 
 ## What is this
