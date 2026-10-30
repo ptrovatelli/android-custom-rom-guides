@@ -289,8 +289,7 @@ Reboot.
 
 The Phone should now run Evolution-x!
 
-# Play integrity, relocking
-
+# Play integrity
 TODO
 
 
