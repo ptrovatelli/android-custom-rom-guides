@@ -151,7 +151,7 @@ Alternatively, you can check this method in telegram notes: [download_oplus_roll
 
 ## Transfer package to the phone
 
-Copy the file to the root of your phone storage (plug the phone via usb to be PC for example and when the phone asks what to do with this connexion choose "transfer files")
+Copy the file to the root of your phone storage (plug the phone via usb to the PC for example and when the phone asks what to do with this connexion choose "transfer files")
 
 ## Install downgrade package
 
