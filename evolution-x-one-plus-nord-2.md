@@ -43,7 +43,7 @@ I'm not an expert and there may be other ways to do it.
 
 This gives more detailed instructions than the official documentation and could be of great help if you've never installed a custom ROM before.
 
-You should know that trying to install a custom ROM could brick your phone and make it useless, although there are often ways to fix an apparently bricked phone, providing you have the time and skills.
+You should know that trying to install a custom ROM could brick your phone and make it useless, although there are often ways to fix an apparently bricked phone, provided you have the time and skills.
 
 # Official instructions
 
@@ -70,7 +70,7 @@ I have not documented how to backup/restore the data because I haven't tested th
 What I have done: 
 
 - Backed up my photos/videos to external drive (always a good idea)
-- Got another phone. Transfered all data to this other phone after a factory reset.
+- Got another phone. Transfered all data to this other phone after a factory reset using android native feature (after the factory reset, the new phone will ask if you want to get data from another phone)
 
 ## Install tools on ubuntu
 
