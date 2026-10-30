@@ -18,7 +18,7 @@
   - [Flash firmware and ROM](#flash-firmware-and-rom)
   - [Format data](#format-data)
   - [Reboot](#reboot)
-- [Play integrity, relocking](#play-integrity-relocking)
+- [Play integrity](#play-integrity)
 
 
 # Introduction
