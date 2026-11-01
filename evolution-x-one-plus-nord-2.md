@@ -19,6 +19,14 @@
   - [Format data](#format-data)
   - [Reboot](#reboot)
 - [Play integrity](#play-integrity)
+  - [Verify current play integrity status](#verify-current-play-integrity-status)
+  - [Play integrity (device, strong)](#play-integrity-device-strong)
+- [Testing sheet](#testing-sheet)
+  - [Conditions](#conditions)
+  - [Communication](#communication)
+  - [Peripherals](#peripherals)
+  - [Phone basics](#phone-basics)
+  - [Applications](#applications)
 
 
 # Introduction
@@ -52,10 +60,16 @@ As a reference, find below the official sources of information:
 - [Page for this device on evolution-x official website](https://evolution-x.org/device/op6893)
 - [xda forum page for evolution-x on this device](https://xdaforums.com/t/rom-op6893-a16-evolutionx-official-for-oneplus-nord-2-5g-and-realme-x7-max-5g.4796652/)
 
-- [telegram support channel](http://t.me/OnePlusNord2GlobalOfficial) 
-  - In the channel, type `/notes` to get a list of tutorials
+- telegram channels:
+  - [telegram support channel for One plus nord 2](http://t.me/OnePlusNord2GlobalOfficial)  (linked by xda page)
+    - In the channel, type `/notes` to get a list of tutorials
+  - [telegram evolution-x channel](https://t.me/EvolutionX)
 
+- [evolution-x github repository](https://github.com/evolution-x)
 
+- [evolution-x wiki](https://wiki.evolution-x.org/)
+
+  
 
 This article is worth mentioning too, not sure everything is up to date though: [Nord2Guides.md](https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#file-nord2guides-md)
 
@@ -290,9 +304,67 @@ Reboot.
 The Phone should now run Evolution-x!
 
 # Play integrity
-TODO
+## Verify current play integrity status
 
+Download and install **Play Integrity API Checker** from the Play Store.
 
+Initial status: 
 
+- MEETS_BASIC_INTEGRITY: green
+- MEETS_DEVICE_INTEGRITY: red
+- MEETS_STRONG_INTEGRITY: red
 
+## Play integrity (device, strong)
+
+There seems to be an issue with the spoofing components at the moment (end October / November 2026) after some changes on google side.
+
+Reaching device or strong integrity is probably doable with rooting + specific modules (just what you would do on any other ROM)
+
+# Testing sheet
+
+## Conditions
+
+Tested on evolution-x 11.11, build BP4A.251205.006.
+
+Device One plus nord 2 DN2103
+
+## Communication
+
+| What                     | Test                                                         | Result |
+| ------------------------ | ------------------------------------------------------------ | ------ |
+| wifi                     | Cut out data and access internet on wifi                     | OK     |
+| internet access (4g)     | (switch favorite network to 4G if you're stuck on 5G). (see note 1) | OK     |
+| internet access (5g)     | (see note 1)                                                 | OK     |
+| hotspot (4G->wifi)       | (switch favorite network to 4G if you're stuck on 5G).       | OK     |
+| hotspot (5g->wifi)       |                                                              | OK     |
+| hotspot (wifi->wifi)     |                                                              | OK     |
+| VOLTE (voice over 4G)    | Make sure you're now on 4G (switch favorite network to 4G if you're stuck on 5G).<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 4G | OK     |
+| VONR (voice over 5G)     | Make sure you're now on 5G.<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 5G | OK     |
+| VOWIFI (voice over wifi) | Check option is present in parameters (was deactivated out of the box)<br/>Cut out data. Make a call. Check that "WIFI call in progress" is displayed (hard to be 100% sure) | OK     |
+
+**Note 1**: if you have an exclamation mark besides your "4G/5G" icon, check your APN settings in order to select your correct carrier. It may be incorrect out of the box
+
+## Peripherals
+
+| What               | Test                                                         | Result |
+| ------------------ | ------------------------------------------------------------ | ------ |
+| gps                | GPS guiding in a car                                         | TODO   |
+| camera             | Quick test: take one picture front camera, one back camera. Take a quick movie | OK     |
+| nfc                | TODO                                                         | TODO   |
+| fingerprint sensor | Configure phone unlock with fingerprints                     | OK     |
+| facial recognition | Configure phone unlock with facial recognition               | OK     |
+
+## Phone basics
+
+| What         | Test                                                         | Result |
+| ------------ | ------------------------------------------------------------ | ------ |
+| vibrate mode | Receive call with vibrate mode                               | OK     |
+| warp charge  | Make sure phone completely charge within about 20mn with appropriate cable | OK     |
+
+## Applications
+
+| What           | Test                                        | Result |
+| -------------- | ------------------------------------------- | ------ |
+| Play integrity | Download and run Play Integrity API Checker | Basic  |
+| google apps    | TODO                                        | TODO   |
 
