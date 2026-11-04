@@ -6,6 +6,7 @@
   - [Handle your data and primary phone](#handle-your-data-and-primary-phone)
   - [Install tools on ubuntu](#install-tools-on-ubuntu)
   - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
+  - [Backup partitions (optional)](#backup-partitions-optional)
 - [Downgrade to OxygenOS 11](#downgrade-to-oxygenos-11)
   - [Device variants](#device-variants)
   - [Download the downgrade package](#download-the-downgrade-package)
@@ -26,7 +27,7 @@
   - [Communication](#communication)
   - [Peripherals](#peripherals)
   - [Phone basics](#phone-basics)
-  - [Applications](#applications)
+  - [Applications and security](#applications-and-security)
 
 
 # Introduction
@@ -114,7 +115,7 @@ Step 2: Enable USB Debugging
 4. Scroll down the list to find **USB debugging** and tap the toggle switch to turn it on.
 5. Tap **OK** on the security warning prompt to confirm.
 
-Step 3: OEM unlocking (although this doesn't seem to have really any effect in my experience, unlocking needs to be done with fastboot too, see later)
+Step 3: OEM unlocking
 
 1. Open **Settings**.
 2. Tap on **Additional settings** (or **System & updates**).
@@ -124,22 +125,48 @@ Step 3: OEM unlocking (although this doesn't seem to have really any effect in m
 6. Enter your lock screen **PIN or password** to authorize the change.
 7. Tap **Enable** on the confirmation warning pop-up.
 
+## Backup partitions (optional)
+
+This is optional but advised as those can be hard to find.
+
+- [Install mtkclient](https://github.com/bkerler/mtkclient#installation)
+- Backup all partitions except user data (add `--preloader` if in brom)
+
+``` 
+python mtk.py rl out --skip userdata
+```
+
+- Backup preloader (from brom mode)
+
+```
+mtk.py r preloader preloader.bin --parttype boot1
+mtk.py r preloader preloader.bin --parttype boot2
+```
+
+- Backup brom (from brom mode)
+
+```
+python mtk.py dumpbrom
+```
+
 # Downgrade to OxygenOS 11
 
-OxygenOS 13 has locked the possibility to enter fastboot / bootloader mode. In order to do this, you first need to revert to OxygenOS 11.
+Latest OxygenOS 13 has locked the possibility to enter fastboot / bootloader mode. In order to do this, you first need to revert to OxygenOS 11.
 
 ## Device variants
 
 **Beware that there are 2 regional variants of this device and 3 downgrade packages**: 
 
-- DN2103 for europe (**EU**) and other countries - not india, not europe- (**GLO**)
+- DN2103
+  - for europe : **EU** (beware that evolution-x displays DN2101 in place of DN2103)
+  - and other countries (not india, not europe): **GLO**
 - DN2101 for **India**
 
 Make sure your use the correct package. You can double-check your phone variant in the phone parameters.
 
 ## Download the downgrade package 
 
-One plus has stopped distributing this package, so we'll find it from the internet archive (aka wayback machine)
+Oneplus has stopped distributing this package, so we'll find it from the internet archive (aka wayback machine)
 
 Original (dead) links were found from https://community.oneplus.com/thread/1596759 and fed to the Wayback machine.
 
@@ -150,12 +177,21 @@ Direct (working) links:
 ```
 sha256sum 'oplus_ota_downgrade_EU'
 3db05626498716191c570dadc08d90adcca0fca5c35a997778a34454c6f64ead  oplus_ota_downgrade_EU.zip
+
 du -h 'oplus_ota_downgrade_EU.zip'
 3,6G	oplus_ota_downgrade_EU.zip
 ```
 
 - DN2103 / GLO: https://web.archive.org/web/20221117114244/https://oxygenos.oneplus.net/oplus_ota_downgrade_NA.zip (to be tested)
 - DN2101 / India: https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_Nord2Rollback.zip (to be tested)
+
+```
+sha256sum 'oplus_ota_downgrade_Nord2Rollback.zip'
+b6282ffdce167b71dfd9bb3c80160b4c4bdd4f8b8d654876b4d811c502247e59  oplus_ota_downgrade_Nord2Rollback.zip
+
+du -h 'oplus_ota_downgrade_Nord2Rollback.zip'
+3,7G	oplus_ota_downgrade_Nord2Rollback.zip
+```
 
 Rename to `oplus_ota_downgrade.zip` after download
 
@@ -237,7 +273,25 @@ Validate with volume up.
 ## Download TWRP, firmware, ROM
 
 - Download the latest TWRP image from https://dl.twrp.me/denniz/ 
-- Download firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+- Download android 13 "hacked" firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip or https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+
+```
+sha256sum 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+fdc4dfccfb12b595e46fba618d7b22f49a4bbc4e61234e3838c124527a2e7e01  13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+
+du -h 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+58M	13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+```
+
+---
+**NOTE**
+
+This package is refered to as ["the firmware with Restore Brom - Based on  https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#restore-brom"](https://github.com/ManshuTyagi/releases/releases/tag/firmware). I believe it is the original oos13 DN2103_11.F.57_2570_202510142204 firmware with a couple of files replaced by the content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) but also with many files omitted (original firmware is about 6GB)
+
+---
+
+
+
 - Download evolution-x ROM from https://evolution-x.org/device/op6893
 
 ## Flash TWRP
@@ -264,7 +318,7 @@ fastboot reboot recovery
 
 ## Flash firmware and ROM
 
-As we are now on OxygenOs 11 and we want to install an android 16 ROM, we need to first update the firmware
+As we are now on OxygenOs 11 (with oos 11 firmware) and we want to install an android 16 ROM, we need to first upgrade to a more recent firmware. It's possible to install android 16 over an android 13 firmware, which is why we have downloaded an android 13 firmware.
 
 **You must flash both the firmware and the ROM without rebooting in between**
 
@@ -287,7 +341,7 @@ On ubuntu push the firmware using adb:
 adb sideload 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
 ```
 
-Wait for TWRP to finish processing it, then push the ROM: 
+Wait for TWRP to finish processing it, then push the ROM, for example:
 
 ```
 adb sideload EvolutionX-16.0-20260919-op6893-11.11-Official.zip
@@ -310,15 +364,15 @@ Download and install **Play Integrity API Checker** from the Play Store.
 
 Initial status: 
 
-- MEETS_BASIC_INTEGRITY: green
-- MEETS_DEVICE_INTEGRITY: red
-- MEETS_STRONG_INTEGRITY: red
+- MEETS_BASIC_INTEGRITY: <span style="color:green">green</span>
+- MEETS_DEVICE_INTEGRITY: <span style="color:red">red</span>
+- MEETS_STRONG_INTEGRITY: <span style="color:red">red</span>
 
 ## Play integrity (device, strong)
 
 There seems to be an issue with the spoofing components at the moment (end October / November 2026) after some changes on google side.
 
-Reaching device or strong integrity is probably doable with rooting + specific modules (just what you would do on any other ROM)
+Reaching device or strong integrity is probably doable with rooting + specific modules (just what you would do on any other ROM), if you don't mind the loss of security that rooting will bring.
 
 # Testing sheet
 
@@ -328,43 +382,50 @@ Tested on evolution-x 11.11, build BP4A.251205.006.
 
 Device One plus nord 2 DN2103
 
+Date: oct/nov 2026.
+
 ## Communication
 
-| What                     | Test                                                         | Result |
-| ------------------------ | ------------------------------------------------------------ | ------ |
-| wifi                     | Cut out data and access internet on wifi                     | OK     |
-| internet access (4g)     | (switch favorite network to 4G if you're stuck on 5G). (see note 1) | OK     |
-| internet access (5g)     | (see note 1)                                                 | OK     |
-| hotspot (4G->wifi)       | (switch favorite network to 4G if you're stuck on 5G).       | OK     |
-| hotspot (5g->wifi)       |                                                              | OK     |
-| hotspot (wifi->wifi)     |                                                              | OK     |
-| VOLTE (voice over 4G)    | Make sure you're now on 4G (switch favorite network to 4G if you're stuck on 5G).<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 4G | OK     |
-| VONR (voice over 5G)     | Make sure you're now on 5G.<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 5G | OK     |
-| VOWIFI (voice over wifi) | Check option is present in parameters (was deactivated out of the box)<br/>Cut out data. Make a call. Check that "WIFI call in progress" is displayed (hard to be 100% sure) | OK     |
+| What                     | Test                                                         | Result                              |
+| ------------------------ | ------------------------------------------------------------ | ----------------------------------- |
+| wifi                     | Cut out data and access internet on wifi                     | <span style="color:green">**OK**</span> |
+| internet access (4g)     | (switch favorite network to 4G if you're stuck on 5G). <br/>(see note 1) | <span style="color:green">**OK**</span> |
+| internet access (5g)     | (see note 1)                                                 | <span style="color:green">**OK**</span> |
+| hotspot (4G->wifi)       | (switch favorite network to 4G if you're stuck on 5G).       | <span style="color:green">**OK**</span> |
+| hotspot (5g->wifi)       |                                                              | <span style="color:green">**OK**</span> |
+| hotspot (wifi->wifi)     |                                                              | <span style="color:green">**OK**</span> |
+| VOLTE (voice over 4G)    | Make sure you're now on 4G (switch favorite network to 4G if you're stuck on 5G).<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 4G | <span style="color:green">**OK**</span> |
+| VONR (voice over 5G)     | Make sure you're now on 5G.<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 5G | <span style="color:green">**OK**</span> |
+| VOWIFI (voice over wifi) | Check option is present in parameters (was deactivated out of the box)<br/>Cut out data. Make a call. Check that "WIFI call in progress" is displayed (hard to be 100% sure) | <span style="color:green">**OK**</span> |
 
 **Note 1**: if you have an exclamation mark besides your "4G/5G" icon, check your APN settings in order to select your correct carrier. It may be incorrect out of the box
 
 ## Peripherals
 
-| What               | Test                                                         | Result |
-| ------------------ | ------------------------------------------------------------ | ------ |
-| gps                | GPS guiding in a car                                         | TODO   |
-| camera             | Quick test: take one picture front camera, one back camera. Take a quick movie | OK     |
-| nfc                | TODO                                                         | TODO   |
-| fingerprint sensor | Configure phone unlock with fingerprints                     | OK     |
-| facial recognition | Configure phone unlock with facial recognition               | OK     |
+| What               | Test                                                         | Result                                   |
+| ------------------ | ------------------------------------------------------------ | ---------------------------------------- |
+| gps                | GPS guiding in a car                                         | <span style="color:gray">**TODO**</span> |
+| camera             | Quick test: take one picture front camera, one back camera. Take a quick movie | <span style="color:green">**OK**</span>  |
+| nfc                | TODO                                                         | <span style="color:gray">**TODO**</span> |
+| fingerprint sensor | Configure phone unlock with fingerprints                     | <span style="color:green">**OK**</span>  |
+| facial recognition | Configure phone unlock with facial recognition               | <span style="color:green">**OK**</span>  |
 
 ## Phone basics
 
-| What         | Test                                                         | Result |
-| ------------ | ------------------------------------------------------------ | ------ |
-| vibrate mode | Receive call with vibrate mode                               | OK     |
-| warp charge  | Make sure phone completely charge within about 20mn with appropriate cable | OK     |
+| What         | Test                                                         | Result                                  |
+| ------------ | ------------------------------------------------------------ | --------------------------------------- |
+| vibrate mode | Receive call with vibrate mode                               | <span style="color:green">**OK**</span> |
+| warp charge  | Make sure phone completely charge within about 35mn with appropriate cable | <span style="color:green">**OK**</span> |
 
-## Applications
+## Applications and security
 
-| What           | Test                                        | Result |
-| -------------- | ------------------------------------------- | ------ |
-| Play integrity | Download and run Play Integrity API Checker | Basic  |
-| google apps    | TODO                                        | TODO   |
+| What                    | Test                                                         | Result                                      |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------- |
+| Play integrity          | Download and run Play Integrity API Checker                  | <span style="color:orange">**Basic**</span> |
+| google apps             | Google authenticator                                         | <span style="color:green">**OK**</span>     |
+|                         | Google drive                                                 | <span style="color:green">**OK**</span>     |
+|                         | Gmail                                                        | <span style="color:green">**OK**</span>     |
+| yubikey                 | Authenticating to a website using a yubikey                  | <span style="color:green">**OK**</span>     |
+| microsoft authenticator |                                                              | <span style="color:green">**OK**</span>     |
+| banking apps            | Most will probably not work (see [Play integrity (device, strong)](#Play-integrity-%28device,-strong%29)) | <span style="color:red">**KO**</span>       |
 
