@@ -30,6 +30,11 @@
   - [Applications and security](#applications-and-security)
 
 
+
+[Go to github page display (better for reading)](https://ptrovatelli.github.io/android-custom-rom-guides/evolution-x-one-plus-nord-2.html)
+
+[Go to github display (better for opening issues and merge requests)](https://github.com/ptrovatelli/android-custom-rom-guides/blob/main/evolution-x-one-plus-nord-2.md)
+
 # Introduction
 
 ## What is this
