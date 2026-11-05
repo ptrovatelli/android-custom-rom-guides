@@ -4,9 +4,9 @@
 - [Official instructions](#official-instructions)
 - [Pre-requisites](#pre-requisites)
   - [Handle your data and primary phone](#handle-your-data-and-primary-phone)
+  - [Backup partitions (optional)](#backup-partitions-optional)
   - [Install tools on ubuntu](#install-tools-on-ubuntu)
   - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
-  - [Backup partitions (optional)](#backup-partitions-optional)
 - [Downgrade to OxygenOS 11](#downgrade-to-oxygenos-11)
   - [Device variants](#device-variants)
   - [Download the downgrade package](#download-the-downgrade-package)
@@ -21,13 +21,18 @@
   - [Reboot](#reboot)
 - [Play integrity](#play-integrity)
   - [Verify current play integrity status](#verify-current-play-integrity-status)
-  - [Play integrity (device, strong)](#play-integrity-device-strong)
+  - [Improve play integrity](#improve-play-integrity)
 - [Testing sheet](#testing-sheet)
   - [Conditions](#conditions)
   - [Communication](#communication)
   - [Peripherals](#peripherals)
   - [Phone basics](#phone-basics)
   - [Applications and security](#applications-and-security)
+- [Troubleshooting](#troubleshooting)
+  - [4g and 5g internet not working](#4g-and-5g-internet-not-working)
+  - [Mtkclient troubleshooting](#mtkclient-troubleshooting)
+    - [Mtkclient on windows](#mtkclient-on-windows)
+    - [Mtkclient : Illegal instruction](#mtkclient--illegal-instruction)
 
 
 
@@ -174,11 +179,11 @@ Make sure your use the correct package. You can double-check your phone variant 
 
 Oneplus has stopped distributing this package, so we'll find it from the internet archive (aka wayback machine)
 
-Original (dead) links were found from https://community.oneplus.com/thread/1596759 and fed to the Wayback machine.
+Original (dead) links were found from [https://community.oneplus.com/thread/1596759](https://community.oneplus.com/thread/1596759) and fed to the Wayback machine.
 
 Direct (working) links: 
 
-- DN2103 / EU : https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_EU.zip
+- [DN2103 / EU](https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_EU.zip)
 
 ```
 sha256sum 'oplus_ota_downgrade_EU'
@@ -188,8 +193,8 @@ du -h 'oplus_ota_downgrade_EU.zip'
 3,6G	oplus_ota_downgrade_EU.zip
 ```
 
-- DN2103 / GLO: https://web.archive.org/web/20221117114244/https://oxygenos.oneplus.net/oplus_ota_downgrade_NA.zip (to be tested)
-- DN2101 / India: https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_Nord2Rollback.zip (to be tested)
+- [DN2103 / GLO](https://web.archive.org/web/20221117114244/https://oxygenos.oneplus.net/oplus_ota_downgrade_NA.zip)  (to be tested)
+- [DN2101 / India](https://web.archive.org/web/20230207132242/https://oxygenos.oneplus.net/oplus_ota_downgrade_Nord2Rollback.zip) (to be tested)
 
 ```
 sha256sum 'oplus_ota_downgrade_Nord2Rollback.zip'
@@ -278,8 +283,8 @@ Validate with volume up.
 
 ## Download TWRP, firmware, ROM
 
-- Download the latest TWRP image from https://dl.twrp.me/denniz/ 
-- Download android 13 modified firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip or https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+- Download the latest TWRP image from [https://dl.twrp.me/denniz/](https://dl.twrp.me/denniz/)
+- Download android 13 modified firmware from [internet archive](https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip) or [github](https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip)
 
 ```
 sha256sum 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
@@ -298,7 +303,7 @@ This package is refered to as ["the firmware with Restore Brom - Based on  https
 
 
 
-- Download evolution-x ROM from https://evolution-x.org/device/op6893
+- Download evolution-x ROM from [https://evolution-x.org/device/op6893](https://evolution-x.org/device/op6893)
 
 ## Flash TWRP
 
@@ -374,7 +379,7 @@ Initial status:
 - MEETS_DEVICE_INTEGRITY: <span style="color:red">red</span>
 - MEETS_STRONG_INTEGRITY: <span style="color:red">red</span>
 
-## Play integrity (device, strong)
+## Improve play integrity
 
 There seems to be an issue with the spoofing components at the moment (end October / November 2026) after some changes on google side.
 
@@ -404,7 +409,7 @@ Date: oct/nov 2026.
 | VONR (voice over 5G)     | Make sure you're now on 5G.<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 5G | <span style="color:green">**OK**</span> |
 | VOWIFI (voice over wifi) | Check option is present in parameters (was deactivated out of the box)<br/>Cut out data. Make a call. Check that "WIFI call in progress" is displayed (hard to be 100% sure) | <span style="color:green">**OK**</span> |
 
-**Note 1**: if you have an exclamation mark besides your "4G/5G" icon, see [4g/5g internet not working](#4g/5g-internet-not-working)
+**Note 1**: if you have an exclamation mark besides your "4G/5G" icon, see [4g and 5g internet not working](#4g-and-5g-internet-not-working)
 
 ## Peripherals
 
@@ -433,11 +438,11 @@ Date: oct/nov 2026.
 |                         | Gmail                                                        | <span style="color:green">**OK**</span>     |
 | yubikey                 | Authenticating to a website using a yubikey                  | <span style="color:green">**OK**</span>     |
 | microsoft authenticator |                                                              | <span style="color:green">**OK**</span>     |
-| banking apps            | Most will probably not work (see [Play integrity (device, strong)](#Play-integrity-%28device,-strong%29)) | <span style="color:red">**KO**</span>       |
+| banking apps            | Most will probably not work (see [Improve play integrity](#improve-play-integrity)) | <span style="color:red">**KO**</span>       |
 
 # Troubleshooting
 
-## 4g/5g internet not working
+## 4g and 5g internet not working
 
 If internet is not working and you see an exclamation mark besides your "4G/5G" icon, check your APN settings in order to select your correct carrier. It may be incorrect out of the box.
 
