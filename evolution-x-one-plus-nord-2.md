@@ -78,14 +78,39 @@ This article is worth mentioning too, not sure everything is up to date though: 
 
 ## Handle your data and primary phone
 
-If this is your primary phone, you may want to get another phone while you're working on this one because it may take time for everything to work as you would expect. 
+If this is currently your primary phone, you may want to get another phone while you're working on this one because it may take time for everything to work as you would expect. 
 
-I have not documented how to backup/restore the data because I haven't tested this but it's possible to make a full backup of your phone
+It's possible to make a full backup of your phone (see next paragraph) but I haven't tested it.
 
 What I have done: 
 
 - Backed up my photos/videos to external drive (always a good idea)
-- Got another phone. Transfered all data to this other phone after a factory reset using android native feature (after the factory reset, the new phone will ask if you want to get data from another phone)
+- Got another phone. Transfered all data to this other phone after a factory reset of this other phone using android native feature (after the factory reset, the new phone asks if you want to get data from another phone)
+
+## Backup partitions (optional)
+
+This is optional but could prove useful as those can be hard to find. Installing mtkclient may take a bit of time though.
+
+- [Install mtkclient](https://github.com/bkerler/mtkclient#installation) (in case of issue see [Mtkclient troubleshooting](#mtkclient-troubleshooting))
+- Backup all partitions to `out` folder except user data (add `--preloader` if in brom). 
+  - Here we skip user data backup for a faster process. You can back it up too if you wish, but I don't think you could restore your personal data easily on evolution-x. It would probably be more usable in case you want to return back to the original ROM.
+
+``` 
+python mtk.py rl out --skip userdata
+```
+
+- Backup preloader (from brom mode)
+
+```
+mtk.py r preloader preloader.bin --parttype boot1
+mtk.py r preloader preloader.bin --parttype boot2
+```
+
+- Backup brom (from brom mode)
+
+```
+python mtk.py dumpbrom
+```
 
 ## Install tools on ubuntu
 
@@ -124,31 +149,6 @@ Step 3: OEM unlocking
 5. Toggle the switch to **On**.
 6. Enter your lock screen **PIN or password** to authorize the change.
 7. Tap **Enable** on the confirmation warning pop-up.
-
-## Backup partitions (optional)
-
-This is optional but advised as those can be hard to find.
-
-- [Install mtkclient](https://github.com/bkerler/mtkclient#installation)
-- Backup all partitions to `out` folder except user data (add `--preloader` if in brom). 
-  - Here we skip user data backup for a faster process. You can back it up too if you wish, but I cannot tell if you would be able to restore it simply
-
-``` 
-python mtk.py rl out --skip userdata
-```
-
-- Backup preloader (from brom mode)
-
-```
-mtk.py r preloader preloader.bin --parttype boot1
-mtk.py r preloader preloader.bin --parttype boot2
-```
-
-- Backup brom (from brom mode)
-
-```
-python mtk.py dumpbrom
-```
 
 # Downgrade to OxygenOS 11
 
@@ -399,7 +399,7 @@ Date: oct/nov 2026.
 | VONR (voice over 5G)     | Make sure you're now on 5G.<br/>Initiate a call and keep it active for 10 seconds.<br/>Make sure you're still on 5G | <span style="color:green">**OK**</span> |
 | VOWIFI (voice over wifi) | Check option is present in parameters (was deactivated out of the box)<br/>Cut out data. Make a call. Check that "WIFI call in progress" is displayed (hard to be 100% sure) | <span style="color:green">**OK**</span> |
 
-**Note 1**: if you have an exclamation mark besides your "4G/5G" icon, check your APN settings in order to select your correct carrier. It may be incorrect out of the box
+**Note 1**: if you have an exclamation mark besides your "4G/5G" icon, see [4g/5g internet not working](#4g/5g-internet-not-working)
 
 ## Peripherals
 
@@ -430,3 +430,44 @@ Date: oct/nov 2026.
 | microsoft authenticator |                                                              | <span style="color:green">**OK**</span>     |
 | banking apps            | Most will probably not work (see [Play integrity (device, strong)](#Play-integrity-%28device,-strong%29)) | <span style="color:red">**KO**</span>       |
 
+# Troubleshooting
+
+## 4g/5g internet not working
+
+If internet is not working and you see an exclamation mark besides your "4G/5G" icon, check your APN settings in order to select your correct carrier. It may be incorrect out of the box.
+
+## Mtkclient troubleshooting
+
+### Mtkclient on windows
+
+It seems that mtkclient is not working on Windows at the moment (november 2026) after a windows update. It might be fixed in the future.
+
+### Mtkclient : Illegal instruction
+
+On any mtkclient call, standard output: 
+
+```` 
+Illegal instruction    (core dumped) python mtk_gui.py
+````
+
+dmesg:
+
+```` 
+[ 1608.107669] traps: python[13220] trap invalid opcode ip:7bef3fb889b9 sp:7ffc335dbe30 error:0 in libshiboken6.abi3.so.6.12[379b9,7bef3fb63000+35000]
+````
+
+
+
+The mtkclient gui components require cpu fetaures `SSE4.1` /`SSE4.2`. If your cpu is very old, you may miss those. 
+
+To verify, check cpu flags in:
+
+```
+lscpu | grep -i sse
+```
+
+If you miss `sse4_1 sse4_2`,  you must uninstall graphical elements in mtkclient and not use the GUI: 
+
+```
+pip uninstall -y PySide6 shiboken6	
+```
