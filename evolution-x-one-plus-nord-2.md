@@ -48,11 +48,11 @@ Please feel free to open issues or merge requests to fix anything.
 
 ## Disclaimer
 
-I'm not an expert and there may be other ways to do it.
-
 This gives more detailed instructions than the official documentation and could be of great help if you've never installed a custom ROM before.
 
 You should know that trying to install a custom ROM could brick your phone and make it useless, although there are often ways to fix an apparently bricked phone, provided you have the time and skills.
+
+There is an alternative path that I have not tested: instead of downgrading to oss 11, you can bypass the latest oos13 hardening by flashing stuff directly from BROM using [mtkclient](https://github.com/bkerler/mtkclient). It may be faster if you have already installed mtkclient and might help you have better control over the user data on the device.
 
 # Official instructions
 
@@ -130,7 +130,8 @@ Step 3: OEM unlocking
 This is optional but advised as those can be hard to find.
 
 - [Install mtkclient](https://github.com/bkerler/mtkclient#installation)
-- Backup all partitions except user data (add `--preloader` if in brom)
+- Backup all partitions to `out` folder except user data (add `--preloader` if in brom). 
+  - Here we skip user data backup for a faster process. You can back it up too if you wish, but I cannot tell if you would be able to restore it simply
 
 ``` 
 python mtk.py rl out --skip userdata
@@ -273,7 +274,7 @@ Validate with volume up.
 ## Download TWRP, firmware, ROM
 
 - Download the latest TWRP image from https://dl.twrp.me/denniz/ 
-- Download android 13 "hacked" firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip or https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
+- Download android 13 modified firmware from https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip or https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip
 
 ```
 sha256sum 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
@@ -286,7 +287,7 @@ du -h 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
 ---
 **NOTE**
 
-This package is refered to as ["the firmware with Restore Brom - Based on  https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#restore-brom"](https://github.com/ManshuTyagi/releases/releases/tag/firmware). I believe it is the original oos13 DN2103_11.F.57_2570_202510142204 firmware with a couple of files replaced by the content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) but also with many files omitted (original firmware is about 6GB)
+This package is refered to as ["the firmware with Restore Brom - Based on  https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#restore-brom"](https://github.com/ManshuTyagi/releases/releases/tag/firmware). It is the original oos13 DN2103_11.F.57_2570_202510142204 firmware with a couple of files replaced by the content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) but also with many files omitted (original firmware is about 6GB). Its purpose is to make it possible to flash an android 14+ ROM while on android 11
 
 ---
 
