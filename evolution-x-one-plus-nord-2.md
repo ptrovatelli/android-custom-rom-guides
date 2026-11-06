@@ -1,18 +1,19 @@
 - [Introduction](#introduction)
   - [What is this](#what-is-this)
   - [Disclaimer](#disclaimer)
+  - [About the boot sequence](#about-the-boot-sequence)
 - [Official instructions](#official-instructions)
 - [Pre-requisites](#pre-requisites)
   - [Handle your data and primary phone](#handle-your-data-and-primary-phone)
   - [Backup partitions (optional)](#backup-partitions-optional)
   - [Install tools on ubuntu](#install-tools-on-ubuntu)
-  - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
 - [Downgrade to OxygenOS 11](#downgrade-to-oxygenos-11)
   - [Device variants](#device-variants)
   - [Download the downgrade package](#download-the-downgrade-package)
   - [Transfer package to the phone](#transfer-package-to-the-phone)
   - [Install downgrade package](#install-downgrade-package)
 - [Install firmware and custom ROM](#install-firmware-and-custom-rom)
+  - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
   - [Unlock bootloader](#unlock-bootloader)
   - [Download TWRP, firmware, ROM](#download-twrp-firmware-rom)
   - [Flash TWRP](#flash-twrp)
@@ -63,6 +64,32 @@ This gives more detailed instructions than the official documentation and could 
 You should know that trying to install a custom ROM could brick your phone and make it useless, although there are often ways to fix an apparently bricked phone, provided you have the time and skills.
 
 There is an alternative path that I have not tested: instead of downgrading to oss 11, you can bypass the latest oos13 hardening by flashing stuff directly from BROM using [mtkclient](https://github.com/bkerler/mtkclient). It may be faster if you have already installed mtkclient and might help you have better control over the user data on the device.
+
+## About the boot sequence
+
+It may be useful to have a basic understanding of android boot sequence
+
+![android_secure_boot.jpg](img/android_secure_boot.jpg)
+
+(Schema from [mtk client in depth learning video](https://www.youtube.com/watch?v=NulWJo2RSKE&feature=youtu.be))
+
+- **BootRom (BROM)**
+  - this is very early in the boot sequence. Nothing is still displayed on the phone screen
+  - an apparently bricked phone with nothing displayed on screen (failed preloader) can still be recovered from BROM
+- Fastboot, fastbootd
+  - **Fastboot** = **bootloader** : from here we can unlock the bootloader
+  
+  ![fastboot.jpg](img/fastboot.jpg)
+  
+  - **FastbootD** : like fastboot but with less possibilities
+  
+  ![fastbootd.jpg](img/fastbootd.jpg)
+- Boot
+  - Then the phone boots, either through the regular boot image or through the recovery image
+
+Example when booting to recovery partition with TWRP: 
+
+![twrp.jpg](img/twrp.jpg)
 
 # Official instructions
 
@@ -130,35 +157,6 @@ Install adb and fastboot to communicate with the phone:
 sudo apt-get install android-tools-adb
 sudo apt-get install android-tools-fastboot
 ```
-
-## Activate developer mode on your phone and more
-
-Step 1: Enable Developer Mode
-
-1. Open the **Settings** app on your phone.
-2. Scroll down and tap on **About device**.
-3. Select **Version**.
-4. Find **Version number** (or Build number) and tap it **7 times** in a row.
-5. Enter your device's **PIN, pattern, or password** when prompted.
-6. You will see a confirmation message at the bottom stating: *"You are now in developer mode"* (or *"You are now a developer"*).
-
-Step 2: Enable USB Debugging
-
-1. Go back to the main **Settings** menu.
-2. Scroll down and tap on **System & updates** (or **Additional settings** depending on your sub-version).
-3. Select **Developer options**.
-4. Scroll down the list to find **USB debugging** and tap the toggle switch to turn it on.
-5. Tap **OK** on the security warning prompt to confirm.
-
-Step 3: OEM unlocking
-
-1. Open **Settings**.
-2. Tap on **Additional settings** (or **System & updates**).
-3. Open **Developer options**.
-4. Scroll down a bit and locate **OEM unlocking** (or *Enable OEM unlock*).
-5. Toggle the switch to **On**.
-6. Enter your lock screen **PIN or password** to authorize the change.
-7. Tap **Enable** on the confirmation warning pop-up.
 
 # Downgrade to OxygenOS 11
 
@@ -257,13 +255,40 @@ See also in telegram */notes* :
 
 # Install firmware and custom ROM
 
+## Activate developer mode on your phone and more
+
+Step 1: Enable Developer Mode
+
+1. Open the **Settings** app on your phone.
+2. Scroll down and tap on **About device**.
+3. Select **Version**.
+4. Find **Version number** (or Build number) and tap it **7 times** in a row.
+5. Enter your device's **PIN, pattern, or password** when prompted.
+6. You will see a confirmation message at the bottom stating: *"You are now in developer mode"* (or *"You are now a developer"*).
+
+Step 2: Enable USB Debugging
+
+1. Go back to the main **Settings** menu.
+2. Scroll down and tap on **System & updates** (or **Additional settings** depending on your sub-version).
+3. Select **Developer options**.
+4. Scroll down the list to find **USB debugging** and tap the toggle switch to turn it on.
+5. Tap **OK** on the security warning prompt to confirm.
+
+Step 3: OEM unlocking
+
+1. Open **Settings**.
+2. Tap on **Additional settings** (or **System & updates**).
+3. Open **Developer options**.
+4. Scroll down a bit and locate **OEM unlocking** (or *Enable OEM unlock*).
+5. Toggle the switch to **On**.
+6. Enter your lock screen **PIN or password** to authorize the change.
+7. Tap **Enable** on the confirmation warning pop-up.
+
 ## Unlock bootloader
 
 After reboot to OOS 11, configure briefly your phone without setting your accounts:
 
-1. Do again [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
-
-2. Plug the phone to your PC
+1. Plug the phone to your PC
 
 3. Run
 
