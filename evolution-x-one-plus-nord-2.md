@@ -125,31 +125,6 @@ What I have done:
 - Backed up my photos/videos to external drive (always a good idea)
 - Got another phone. Transfered all data to this other phone after a factory reset of this other phone using android native feature (after the factory reset, the new phone asks if you want to get data from another phone)
 
-## Backup partitions (optional)
-
-This is optional but could prove useful as those can be hard to find. Installing mtkclient may take a bit of time though.
-
-- [Install mtkclient](https://github.com/bkerler/mtkclient#installation) (in case of issue see [Mtkclient troubleshooting](#mtkclient-troubleshooting))
-- Backup all partitions to `out` folder except user data (add `--preloader` if in brom). 
-  - Here we skip user data backup for a faster process. You can back it up too if you wish, but I don't think you could restore your personal data easily on evolution-x. It would probably be more usable in case you want to return back to the original ROM.
-
-``` 
-python mtk.py rl out --skip userdata
-```
-
-- Backup preloader (from brom mode)
-
-```
-mtk.py r preloader preloader.bin --parttype boot1
-mtk.py r preloader preloader.bin --parttype boot2
-```
-
-- Backup brom (from brom mode)
-
-```
-python mtk.py dumpbrom
-```
-
 ## Install tools on ubuntu
 
 Install adb and fastboot to communicate with the phone:
@@ -255,6 +230,33 @@ See also in telegram */notes* :
    - As soon as the installation reaches 100%, tap **Restart**.
 
 # Install firmware and custom ROM
+
+## Backup partitions (optional)
+
+This is optional but could prove useful as those can be hard to find. Installing mtkclient may take a bit of time though.
+
+**Note that I have not tested this procedure while the device was in that state. Please tell me if it works or not.**
+
+- [Install mtkclient](https://github.com/bkerler/mtkclient#installation) (in case of issue see [Mtkclient troubleshooting](#mtkclient-troubleshooting))
+- Backup all partitions to `out` folder except user data (add `--preloader` if in brom). 
+  - Here we skip user data backup for a faster process. You can back it up too if you wish, but I don't think you could restore your personal data easily on evolution-x. It would probably be more usable in case you want to return back to the original ROM.
+
+``` 
+python mtk.py rl out --skip userdata
+```
+
+- Backup preloader (from brom mode)
+
+```
+mtk.py r preloader preloader.bin --parttype boot1
+mtk.py r preloader preloader.bin --parttype boot2
+```
+
+- Backup brom (from brom mode)
+
+```
+python mtk.py dumpbrom
+```
 
 ## Activate developer mode on your phone and more
 
