@@ -324,7 +324,12 @@ du -h 13.0-F.57-Denniz_Restore_Brom_Firmware.zip
 ---
 **NOTE**
 
-This package is refered to as ["the firmware with Restore Brom - Based on  https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#restore-brom"](https://github.com/ManshuTyagi/releases/releases/tag/firmware). It is the original oos13 DN2103_11.F.57_2570_202510142204 firmware with a couple of files replaced by the content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) but also with many files omitted (original firmware is about 6GB). Its purpose is to make it possible to flash an android 14+ ROM while on android 11
+This package is refered to as ["the firmware with Restore Brom - Based on  https://gist.github.com/Giovix92/c7e69123dbc51adf3f3a26f9c3c0208e#restore-brom"](https://github.com/ManshuTyagi/releases/releases/tag/firmware). It contains: 
+
+- part of the original oos13 DN2103_11.F.57_2570_202510142204 firmware with many files omitted (original firmware is about 6GB). Its purpose is to make it possible to flash an android 14+ ROM while on android 11
+- The content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) : 
+  - Lk, Lk2 from android 11, where fastboot worked
+  - preloader_ufs from oos 12 C.01  where brom exploit wasn't fixed (make it possible to fully use mtkclient)
 
 ---
 
