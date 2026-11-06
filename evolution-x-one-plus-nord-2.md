@@ -63,8 +63,6 @@ This gives more detailed instructions than the official documentation and could 
 
 You should know that trying to install a custom ROM could brick your phone and make it useless, although there are often ways to fix an apparently bricked phone, provided you have the time and skills.
 
-There is an alternative path that I have not tested: instead of downgrading to oss 11, you can bypass the latest oos13 hardening by flashing stuff directly from BROM using [mtkclient](https://github.com/bkerler/mtkclient). It may be faster if you have already installed mtkclient and might help you have better control over the user data on the device.
-
 ## About the boot sequence
 
 It may be useful to have a basic understanding of android boot sequence
@@ -75,13 +73,16 @@ It may be useful to have a basic understanding of android boot sequence
 
 - **BootRom (BROM)**
   - this is very early in the boot sequence. Nothing is still displayed on the phone screen
-  - an apparently bricked phone with nothing displayed on screen (failed preloader) can still be recovered from BROM
+    - an apparently bricked phone with nothing displayed on screen (failed preloader) can still be recovered from BROM with mtkclient. However note that the exloits that made mtkclient fully functional were fixed in recent firmwares.
 - Fastboot, fastbootd
-  - **Fastboot** = **bootloader** : from here we can unlock the bootloader
+  - **Fastboot** = **bootloader**
+    - from here we can unlock the bootloader but **this feature is blocked on oos 12+**
   
   ![fastboot.jpg](img/fastboot.jpg)
   
-  - **FastbootD** : like fastboot but with less possibilities
+  - **FastbootD** : 
+    - like fastboot but with less possibilities. Still possible with oos13.
+    - you can flash some partitions but not all 
   
   ![fastbootd.jpg](img/fastbootd.jpg)
 - Boot
@@ -309,6 +310,7 @@ Validate with volume up.
 ## Download TWRP, firmware, ROM
 
 - Download the latest TWRP image from [https://dl.twrp.me/denniz/](https://dl.twrp.me/denniz/)
+  - *Note that you cannot use the recovery partition delivered with evolution-x because it is not compatible with oos 11*
 - Download android 13 modified firmware from [internet archive](https://archive.org/download/rmx3031-firmware-f-57-restore-brom/13.0-F.57-Denniz_Restore_Brom_Firmware.zip) or [github](https://github.com/ManshuTyagi/releases/releases/download/firmware/13.0-F.57-Denniz_Restore_Brom_Firmware.zip)
 
 ```
@@ -334,7 +336,7 @@ This package is refered to as ["the firmware with Restore Brom - Based on  https
 
 TWRP is an app that will help us install the firmware and the ROM to the device
 
-Switch to fastbootd mode: 
+Switch to **fastbootd mode**
 
 ```
 fastboot reboot fastboot
