@@ -5,7 +5,6 @@
 - [Official instructions](#official-instructions)
 - [Pre-requisites](#pre-requisites)
   - [Handle your data and primary phone](#handle-your-data-and-primary-phone)
-  - [Backup partitions (optional)](#backup-partitions-optional)
   - [Install tools on ubuntu](#install-tools-on-ubuntu)
 - [Downgrade to OxygenOS 11](#downgrade-to-oxygenos-11)
   - [Device variants](#device-variants)
@@ -13,6 +12,7 @@
   - [Transfer package to the phone](#transfer-package-to-the-phone)
   - [Install downgrade package](#install-downgrade-package)
 - [Install firmware and custom ROM](#install-firmware-and-custom-rom)
+  - [Backup partitions (optional)](#backup-partitions-optional)
   - [Activate developer mode on your phone and more](#activate-developer-mode-on-your-phone-and-more)
   - [Unlock bootloader](#unlock-bootloader)
   - [Download TWRP, firmware, ROM](#download-twrp-firmware-rom)
@@ -143,11 +143,14 @@ Latest OxygenOS 13 has locked the possibility to enter fastboot / bootloader mod
 **Beware that there are 2 regional variants of this device and 3 downgrade packages**: 
 
 - DN2103
-  - for europe : **EU** (beware that evolution-x displays DN2101 in place of DN2103)
-  - and other countries (not india, not europe): **GLO**
-- DN2101 for **India**
+  - for europe : **EU** (beware that evolution-x displays DN2101 in place of DN2103) => **region XEU0000**
+  - For north america: **NA** => **X00US00** (I haven't found any specific package; can probably use **GLO**)
+  - and other countries (not india, not europe): **GLO** => **region 1EP0000**
+- DN2101 for **India** => **region X00IN00**
 
-Make sure your use the correct package. You can double-check your phone variant in the phone parameters.
+Make sure your use the correct package. You can double-check your phone variant (DN2101/DN2103) in the phone parameters (software version)
+
+You can check the region by dialling *#6776#
 
 ## Download the downgrade package 
 
@@ -228,6 +231,12 @@ See also in telegram */notes* :
    - Let the installation process run until it finishes (this can take 5 to 10 minutes).
 
    - As soon as the installation reaches 100%, tap **Restart**.
+
+
+
+**Troubleshooting**
+
+If you keep having **Verification failed** error, try to factory reset the phone and put it in English language.
 
 # Install firmware and custom ROM
 
@@ -330,8 +339,8 @@ This package is refered to as ["the firmware with Restore Brom - Based on  https
 
 - part of the original oos13 DN2103_11.F.57_2570_202510142204 firmware with many files omitted (original firmware is about 6GB). Its purpose is to make it possible to flash an android 14+ ROM while on android 11
 - The content of [bulletproof_denniz.zip](https://sourceforge.net/projects/giovix92-builds/files/denniz/extras/bulletproof_denniz.zip/download) : 
-  - Lk, Lk2 from android 11, where fastboot worked
-  - preloader_ufs from oos 12 C.01  where brom exploit wasn't fixed (make it possible to fully use mtkclient)
+  - **Lk, Lk2 from android 11**, where fastboot worked (probably not needed in our case as fastboot is already functional)
+  - **preloader_ufs from oos 12 C.01** where brom exploit wasn't fixed (make it possible to fully use mtkclient). May not be needed in our case (brom exploit works on oos 11). Might be required in order to flash A16 ROM on oos11.
 
 ---
 
@@ -391,6 +400,12 @@ Wait for TWRP to finish processing it, then push the ROM, for example:
 ```
 adb sideload EvolutionX-16.0-20260919-op6893-11.11-Official.zip
 ```
+
+It's possible that you see `Failed to mount '/data' (Invalid argument)` error while the operation is still successfull. Check that at least last line is `script succeeded`. Example:
+
+![rom_sideload_out.jpg](img/rom_sideload_out.jpg)
+
+
 
 ## Format data
 
