@@ -74,8 +74,9 @@ It may be useful to have a basic understanding of android boot sequence
 - **BootRom (BROM)**
   - this is very early in the boot sequence. Nothing is still displayed on the phone screen
     - an apparently bricked phone with nothing displayed on screen (failed preloader) can still be recovered from BROM with mtkclient. However note that the exloits that made mtkclient fully functional were fixed in recent firmwares.
-- Fastboot, fastbootd
-  - **Fastboot** = **bootloader**
+- **LK** (little kernel)
+  
+  - **Fastboot** (sometimes called **bootloader**)
     - from here we can unlock the bootloader but **this feature is blocked on oos 12+**
   
   ![fastboot.jpg](img/fastboot.jpg)
@@ -85,6 +86,11 @@ It may be useful to have a basic understanding of android boot sequence
     - you can flash some partitions but not all 
   
   ![fastbootd.jpg](img/fastbootd.jpg)
+  
+  - One plus splash screen (displayed by the LK for regular booting, if you're not booting to fastboot or fastbootd). Displays "orange state" in case of unlocked bootloader
+
+![lk_splash_screen.jpg](img/lk_splash_screen.jpg)
+
 - Boot
   - Then the phone boots, either through the regular boot image or through the recovery image
 
