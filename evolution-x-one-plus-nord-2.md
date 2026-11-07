@@ -464,7 +464,7 @@ Date: oct/nov 2026.
 
 | What               | Test                                                         | Result                                   |
 | ------------------ | ------------------------------------------------------------ | ---------------------------------------- |
-| gps                | GPS guiding in a car                                         | <span style="color:gray">**TODO**</span> |
+| gps                | GPS guiding in a car                                         | <span style="color:green">**OK**</span>  |
 | camera             | Quick test: take one picture front camera, one back camera. Take a quick movie | <span style="color:green">**OK**</span>  |
 | nfc                | TODO                                                         | <span style="color:gray">**TODO**</span> |
 | fingerprint sensor | Configure phone unlock with fingerprints                     | <span style="color:green">**OK**</span>  |
