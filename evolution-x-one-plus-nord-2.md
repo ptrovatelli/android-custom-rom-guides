@@ -82,8 +82,8 @@ It may be useful to have a basic understanding of android boot sequence
   ![fastboot.jpg](img/fastboot.jpg)
   
   - **FastbootD** : 
-    - like fastboot but with less possibilities. Still possible with oos13.
-    - you can flash some partitions but not all 
+    - like fastboot but with less possibilities. Still possible with oos13. 
+    - you can flash some partitions but not all (unless bootloader is unlocked)
   
   ![fastbootd.jpg](img/fastbootd.jpg)
   
